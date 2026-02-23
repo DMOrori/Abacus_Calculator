@@ -1,20 +1,82 @@
 package com.example.abacus
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var display: EditText
+    private var firstNumber = 0.0
+    private var operator = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        display = findViewById(R.id.display)
+
+        val buttons = listOf(
+            "0","1","2","3","4","5","6","7","8","9",
+            "+","−","×","÷","=","AC"
+        )
+
+        buttons.forEach { text ->
+            val btn = findButtonByText(text)
+            btn?.setOnClickListener {
+                handleInput(text)
+            }
+        }
+    }
+
+    private fun findButtonByText(text: String): Button? {
+        val root = findViewById<android.view.ViewGroup>(android.R.id.content)
+        return findButtonRecursive(root, text)
+    }
+
+    private fun findButtonRecursive(view: android.view.View, text: String): Button? {
+        if (view is Button && view.text == text) return view
+        if (view is android.view.ViewGroup) {
+            for (i in 0 until view.childCount) {
+                val result = findButtonRecursive(view.getChildAt(i), text)
+                if (result != null) return result
+            }
+        }
+        return null
+    }
+
+    private fun handleInput(value: String) {
+
+        when(value) {
+
+            "AC" -> {
+                display.setText("")
+                firstNumber = 0.0
+                operator = ""
+            }
+
+            "+","−","×","÷" -> {
+                firstNumber = display.text.toString().toDouble()
+                operator = value
+                display.setText("")
+            }
+
+            "=" -> {
+                val secondNumber = display.text.toString().toDouble()
+                val result = when(operator) {
+                    "+" -> firstNumber + secondNumber
+                    "−" -> firstNumber - secondNumber
+                    "×" -> firstNumber * secondNumber
+                    "÷" -> firstNumber / secondNumber
+                    else -> 0.0
+                }
+                display.setText(result.toString())
+            }
+
+            else -> {
+                display.append(value)
+            }
         }
     }
 }
