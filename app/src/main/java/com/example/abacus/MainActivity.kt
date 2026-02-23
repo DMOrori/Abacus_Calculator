@@ -48,35 +48,52 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleInput(value: String) {
 
-        when(value) {
+        try {
 
-            "AC" -> {
-                display.setText("")
-                firstNumber = 0.0
-                operator = ""
-            }
+            when(value) {
 
-            "+","−","×","÷" -> {
-                firstNumber = display.text.toString().toDouble()
-                operator = value
-                display.setText("")
-            }
-
-            "=" -> {
-                val secondNumber = display.text.toString().toDouble()
-                val result = when(operator) {
-                    "+" -> firstNumber + secondNumber
-                    "−" -> firstNumber - secondNumber
-                    "×" -> firstNumber * secondNumber
-                    "÷" -> firstNumber / secondNumber
-                    else -> 0.0
+                "AC" -> {
+                    display.setText("")
+                    firstNumber = 0.0
+                    operator = ""
                 }
-                display.setText(result.toString())
+
+                "+","−","×","÷" -> {
+                    if(display.text.isEmpty()) return
+                    firstNumber = display.text.toString().toDouble()
+                    operator = value
+                    display.setText("")
+                }
+
+                "=" -> {
+                    if(display.text.isEmpty()) return
+                    val secondNumber = display.text.toString().toDouble()
+
+                    val result = when(operator) {
+                        "+" -> firstNumber + secondNumber
+                        "−" -> firstNumber - secondNumber
+                        "×" -> firstNumber * secondNumber
+                        "÷" -> {
+                            if(secondNumber == 0.0) {
+                                display.setText("Error")
+                                return
+                            } else {
+                                firstNumber / secondNumber
+                            }
+                        }
+                        else -> 0.0
+                    }
+
+                    display.setText(result.toString())
+                }
+
+                else -> {
+                    display.append(value)
+                }
             }
 
-            else -> {
-                display.append(value)
-            }
+        } catch (e: Exception) {
+            display.setText("Error")
         }
     }
 }

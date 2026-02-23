@@ -1,68 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#F5F5F5">
+    android:background="#F0F4F8">
 
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ABACUS CALCULATOR"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#1E88E5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Display -->
     <EditText
         android:id="@+id/display"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="80dp"
-        android:gravity="end"
-        android:textSize="30sp"
-        android:inputType="none"
         android:background="#FFFFFF"
-        android:padding="10dp"/>
+        android:gravity="end|center_vertical"
+        android:textSize="28sp"
+        android:padding="16dp"
+        android:inputType="none"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp"/>
 
-    <!-- Row 1 -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- Buttons Grid -->
+    <GridLayout
+        android:id="@+id/grid"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:columnCount="4"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@id/display"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Numbers -->
         <Button android:text="7" style="@style/btnStyle"/>
         <Button android:text="8" style="@style/btnStyle"/>
         <Button android:text="9" style="@style/btnStyle"/>
-        <Button android:text="÷" style="@style/btnStyle"/>
-    </LinearLayout>
-
-    <!-- Row 2 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <Button android:text="÷" style="@style/operatorStyle"/>
 
         <Button android:text="4" style="@style/btnStyle"/>
         <Button android:text="5" style="@style/btnStyle"/>
         <Button android:text="6" style="@style/btnStyle"/>
-        <Button android:text="×" style="@style/btnStyle"/>
-    </LinearLayout>
-
-    <!-- Row 3 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <Button android:text="×" style="@style/operatorStyle"/>
 
         <Button android:text="1" style="@style/btnStyle"/>
         <Button android:text="2" style="@style/btnStyle"/>
         <Button android:text="3" style="@style/btnStyle"/>
-        <Button android:text="−" style="@style/btnStyle"/>
-    </LinearLayout>
+        <Button android:text="−" style="@style/operatorStyle"/>
 
-    <!-- Row 4 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button android:text="AC" style="@style/btnStyle"/>
+        <Button android:text="AC" style="@style/clearStyle"/>
         <Button android:text="0" style="@style/btnStyle"/>
-        <Button android:text="=" style="@style/btnStyle"/>
-        <Button android:text="+" style="@style/btnStyle"/>
-    </LinearLayout>
+        <Button android:text="=" style="@style/equalStyle"/>
+        <Button android:text="+" style="@style/operatorStyle"/>
 
-</LinearLayout>
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
