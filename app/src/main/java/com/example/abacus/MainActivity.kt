@@ -1,9 +1,9 @@
 package com.example.abacus
 
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.abacus.databinding.ActivityMainBinding
+import com.google.android.material.button.MaterialButton
 import net.objecthunter.exp4j.ExpressionBuilder // Add this to dependencies
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val grid = binding.grid
         for (i in 0 until grid.childCount) {
             val view = grid.getChildAt(i)
-            if (view is Button) {
+            if (view is MaterialButton) {
                 view.setOnClickListener { onButtonClick(view.text.toString()) }
             }
         }
