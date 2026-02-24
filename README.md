@@ -2,6 +2,10 @@
 
 A simple and stylish calculator application for Android, built with Kotlin and Material Design components.
 
+## Screenshot
+
+![Abacus Calculator Screenshot](screenshot.PNG)
+
 ## Features
 
 *   **Standard & Scientific Operations:** Performs basic arithmetic (add, subtract, multiply, divide) as well as scientific functions (square root, pi, power, percentage).
